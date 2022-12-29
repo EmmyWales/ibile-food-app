@@ -112,7 +112,24 @@ class _VerifyAccountState extends State<VerifyAccount> {
                     ),
                   )
                 ],
-              )
+              ),
+              MaterialButton(
+                onPressed: () {},
+                color: AppColor.primary,
+                height: 50,
+                minWidth: 360,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                child: Text(
+                  "Verify",
+                  style: GoogleFonts.montserrat(
+                    textStyle: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      color: Color(0XFFFFFFFF),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
