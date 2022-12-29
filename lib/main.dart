@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ibile/home.dart';
 import 'package:ibile/screens/forgetpword.dart';
+import 'package:ibile/screens/homepage.dart';
 import 'package:ibile/screens/login.dart';
 import 'package:ibile/screens/onboarding.dart';
 import 'package:ibile/screens/resetpassword.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Ibile',
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: MyHomePage(),
     );
   }
 }
