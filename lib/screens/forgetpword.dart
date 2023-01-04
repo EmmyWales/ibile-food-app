@@ -90,9 +90,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     ),
                     MaterialButton(
                       onPressed: () {
-                         if (_formKey.currentState!.validate()) {
-                            Navigator.pushReplacementNamed(context, '/login');
-                          }
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.pushReplacementNamed(context, '/login');
+                        }
                       },
                       color: AppColor.primary,
                       height: 50,
