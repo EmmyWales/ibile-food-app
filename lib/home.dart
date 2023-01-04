@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: AppColor.box,
         body: SafeArea(
           child: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
