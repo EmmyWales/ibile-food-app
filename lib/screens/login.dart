@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ibile/screens/forgetpword.dart';
+import 'package:ibile/screens/signup.dart';
 import 'package:ibile/utils/colors.dart';
 
 class LoginPage extends StatefulWidget {
@@ -87,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 10,
                       ),
                       TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         cursorColor: AppColor.txt,
                         style: GoogleFonts.montserrat(
                           textStyle: TextStyle(
@@ -95,6 +98,17 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         controller: _email,
+                        validator: (value) {
+                            if (value!.length < 8) {
+                              return "Enter a valid email";
+                            } else if (!value.contains('@')) {
+                              return "Email must contain '@'";
+                            } else if (!value.contains('.com')) {
+                              return "Email must contain .com";
+                            } else {
+                              return null;
+                            }
+                          },
                         keyboardType: TextInputType.multiline,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -124,12 +138,20 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       TextFormField(
                         cursorColor: AppColor.txt,
+                        validator: (value) {
+                            if (value!.length < 8) {
+                              return "Password must not be less than 8 caracters ";
+                            } else {
+                              return null;
+                            }
+                          },
                         style: GoogleFonts.montserrat(
                           textStyle: TextStyle(
                             fontWeight: FontWeight.w400,
                             color: AppColor.txt,
                           ),
                         ),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         obscureText: isOpen,
                         controller: _pword,
                         keyboardType: TextInputType.text,
@@ -158,7 +180,13 @@ class _LoginPageState extends State<LoginPage> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ForgetPassword()));
+                          },
                           child: Text(
                             "Forgot Password?",
                             style: GoogleFonts.montserrat(
@@ -172,7 +200,11 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            Navigator.pushReplacementNamed(context, '/home');
+                          }
+                        },
                         color: AppColor.primary,
                         height: 50,
                         minWidth: 360,
@@ -203,17 +235,19 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             children: [
                               TextSpan(
-                                text: 'Sign Up',
-                                style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColor.primary,
+                                  text: 'Sign Up',
+                                  style: GoogleFonts.montserrat(
+                                    textStyle: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColor.primary,
+                                    ),
                                   ),
-                                ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () =>
-                                      Navigator.pushNamed(context, '/signup'),
-                              )
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SignUp())))
                             ],
                           ),
                         ),

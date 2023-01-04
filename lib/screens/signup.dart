@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ibile/screens/login.dart';
 
 import '../utils/colors.dart';
 
@@ -78,6 +79,7 @@ class _SignUpState extends State<SignUp> {
                       height: 10,
                     ),
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       cursorColor: AppColor.txt,
                       style: GoogleFonts.montserrat(
                         textStyle: TextStyle(
@@ -85,6 +87,17 @@ class _SignUpState extends State<SignUp> {
                           color: AppColor.txt,
                         ),
                       ),
+                      validator: (value) {
+                            if (value!.length < 8) {
+                              return "Enter a valid email";
+                            } else if (!value.contains('@')) {
+                              return "Email must contain '@'";
+                            } else if (!value.contains('.com')) {
+                              return "Email must contain .com";
+                            } else {
+                              return null;
+                            }
+                          },
                       controller: _email,
                       keyboardType: TextInputType.multiline,
                       decoration: InputDecoration(
@@ -115,12 +128,20 @@ class _SignUpState extends State<SignUp> {
                     ),
                     TextFormField(
                       cursorColor: AppColor.txt,
+                      validator: (value) {
+                            if (value!.length < 8) {
+                              return "Password must not be less than 8 caracters ";
+                            } else {
+                              return null;
+                            }
+                          },
                       style: GoogleFonts.montserrat(
                         textStyle: TextStyle(
                           fontWeight: FontWeight.w400,
                           color: AppColor.txt,
                         ),
                       ),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       obscureText: isOpen,
                       controller: _pword,
                       keyboardType: TextInputType.text,
@@ -174,7 +195,11 @@ class _SignUpState extends State<SignUp> {
                       height: 10,
                     ),
                     MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                         if (_formKey.currentState!.validate()) {
+                            Navigator.pushReplacementNamed(context, '/home');
+                          }
+                      },
                       color: AppColor.primary,
                       height: 50,
                       minWidth: 360,
@@ -241,8 +266,10 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10,),
-                     Container(
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
                       height: 50,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
@@ -299,7 +326,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () =>
-                                    Navigator.pushNamed(context, '/signup'),
+                                    Navigator.pushNamed(context, '/login'),
                             )
                           ],
                         ),
